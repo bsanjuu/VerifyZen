@@ -5,13 +5,8 @@ import env from '../../config/env';
 import { AuthenticationError, AuthorizationError } from '../../utils/errorHandler';
 import { logger } from '../../utils/logger';
 
-export interface AuthRequest extends Request {
-  user?: User;
-  userId?: string;
-}
-
 export async function authenticate(
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> {
@@ -43,7 +38,7 @@ export async function authenticate(
 }
 
 export function authorize(...allowedRoles: string[]) {
-  return async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       if (!req.user) {
         throw new AuthenticationError('Not authenticated');

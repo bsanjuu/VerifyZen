@@ -46,7 +46,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   }
 
   public toJSON(): object {
-    const values = { ...this.get() };
+    const values: any = { ...this.get() };
     delete values.password;
     return values;
   }
